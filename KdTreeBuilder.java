@@ -1,8 +1,13 @@
 import java.io. * ;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class KdTreeBuilder {
     public static void main(String[] args) {
+
+
+        List<Node> nodes = new ArrayList<Node>();
 
         // options output
         System.out.println("---------------------------- KDTree Builder --------------------------");
@@ -29,25 +34,14 @@ public class KdTreeBuilder {
             Scanner scan = new Scanner(new File("csv/"+filename));
             // set new line as delimiter
             scan.useDelimiter("\n");
-            // parse file and build kdtree
-            KdTree tree = new KdTree();
+            // parse file
             int count = 0;
             while (scan.hasNext()) {
                 // each line is coordinate string e.g. 0,0
                 String coordsString = scan.next();
                 // create node from coordinate
-                KdNode node = new KdNode(coordsString);
-                System.out.println("------------------- insert node -------------------");
-
-                // build tree
-                tree.insertNode(node, 0);
-                
-                System.out.println("-------------------- after add --------------------");
-                System.out.println("tree after adding node " + count);
-                System.out.println("tree size " + tree.getSize());
-                tree.printKdTree();
-                count++;
-                System.out.println("---------------------------------------------------");
+                Node node = new Node(coordsString);
+                nodes.add(node);
                     
             }
             // close scan
@@ -57,5 +51,7 @@ public class KdTreeBuilder {
             // message in case file is not found
             System.out.println("CSV file not found");
         }
+        KdTree tree = new KdTree(nodes);
+        tree.printKdTree();
     }
 }
