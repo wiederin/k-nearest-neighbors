@@ -40,3 +40,18 @@ KdTree
 2  5.0,6.0 6.0,12.0  17.0,15.0 10.0,19.0
     /  \     /  \       /  \      /  \
 3 3.0,6.0
+
+# Helpful Sources
+
+## KdTree
+
+- https://rosettacode.org/wiki/K-d_tree#Java 
+
+## Maven
+
+- https://spring.io/guides/gs/maven/  
+
+## Testing
+
+- https://www.nathanbak.com/?p=388
+- https://www.vogella.com/tutorials/JUnit/article.html 
