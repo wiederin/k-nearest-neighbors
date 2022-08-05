@@ -7,7 +7,7 @@ import org.junit.Test;
  */
 public class NodeComparatorTest {
     @Test
-    public void tests() {
+    public void nodeComparatorTest() {
         // init NodeComparators
         NodeComparator nc0 = new NodeComparator(0);
         NodeComparator nc1 = new NodeComparator(1);

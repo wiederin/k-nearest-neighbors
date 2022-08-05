@@ -8,7 +8,7 @@ import org.junit.Test;
  */
 public class NodeTest {
     @Test
-    public void runTests() {
+    public void nodeTest() {
         // test constuctor #1
         assertTrue("constructor #1 does not work", leftRightCoordsConstructorTest());
         // test constructor #2
