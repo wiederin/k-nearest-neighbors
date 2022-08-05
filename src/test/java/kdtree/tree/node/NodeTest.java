@@ -1,39 +1,31 @@
-package src.main.java.kdtree.node;
+package src.test.java.kdtree.tree.node;
+import src.main.java.kdtree.tree.node.Node;
+import static org.junit.Assert.*;
+import org.junit.Test;
 
 /*
- * Test functions return true if passed, false if failed
- * 
- * 
+ * test class for Node
  */
 public class NodeTest {
-    public static void main(String[] args) {
+    @Test
+    public void runTests() {
         // counter for passed tests
         int passed = 0;
         int failed = 0;
         // test constuctor #1
-        if(leftRightCoordsConstructorTest()){++passed;}
-        else{++failed;};
+        assertTrue("constructor #1 does not work", leftRightCoordsConstructorTest());
         // test constructor #2
-        if(coordStringConstructorTest()){++passed;}
-        else{++failed;}
+        assertTrue("constructor #2 does not work", coordStringConstructorTest());
         // test distanceTo
-        if(distanceToTest(new Node("5.0,5.0"), new Node("10.0,10.0"))){++passed;}
-        else{++failed;}
+        assertTrue("distanceTo method does not work", distanceToTest(new Node("5.0,5.0"), new Node("10.0,10.0")));
         // test isLeaf
-        if(isLeafTest()){++passed;}
-        else{++failed;}
+        assertTrue("isLeaf method does not work", isLeafTest());
         // test hasLeft
-        if(hasLeftTest()){++passed;}
-        else{++failed;}
+        assertTrue("hasLeft method does not work", hasLeftTest());
         // test hasRight
-        if(hasRightTest()){++passed;}
-        else{++failed;}
+        assertTrue("hasRight method does not work", hasRightTest());
         // test getCoord
-        if(getCoordTest()){++passed;}
-        else{++failed;}
-        // print number of tests passed & failed
-        System.out.println("passed tests: " + passed + " out of 7");
-        System.out.println("failed tests: " + failed + " out of 7");
+        assertTrue("getCoord method does not work", getCoordTest());
     }
 
     // test function for constructor with left, right, and coords
