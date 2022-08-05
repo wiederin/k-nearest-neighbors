@@ -17,7 +17,7 @@
         <dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.12</version>
+			<version>5.0</version>
 			<scope>test</scope>
 		</dependency>
     </dependencies
@@ -38,7 +38,7 @@
                             <transformers>
                                 <transformer
                                     implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>KdTreeBuilder</mainClass>
+                                    <mainClass>kdtree.KdTreeBuilder</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
