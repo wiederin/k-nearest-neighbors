@@ -1,3 +1,4 @@
+package src.main.java.kdtree.node;
 import java.util.Comparator;
 
 // NodeComparator compares node coord based on index

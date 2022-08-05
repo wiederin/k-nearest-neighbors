@@ -1,3 +1,5 @@
+package src.main.java.kdtree.node;
+
 /*
  * Test functions return true if passed, false if failed
  * 

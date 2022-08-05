@@ -1,3 +1,5 @@
+package src.main.java.kdtree.node;
+
 public class Node {
 
     // member variables

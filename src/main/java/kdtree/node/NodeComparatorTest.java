@@ -1,3 +1,4 @@
+package src.main.java.kdtree.node;
 public class NodeComparatorTest {
     public static void main(String[] args) {
         int passed = 0;
