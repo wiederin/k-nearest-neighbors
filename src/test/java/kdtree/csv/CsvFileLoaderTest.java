@@ -1,11 +1,8 @@
 package src.test.java.kdtree.csv;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.io. *;
-import java.util.Scanner;
 
 import src.main.java.kdtree.csv.CsvFileLoader;
-import src.main.java.kdtree.tree.node.Node;
 
 public class CsvFileLoaderTest {
     @Test
