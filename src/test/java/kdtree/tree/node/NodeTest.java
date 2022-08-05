@@ -9,9 +9,6 @@ import org.junit.Test;
 public class NodeTest {
     @Test
     public void runTests() {
-        // counter for passed tests
-        int passed = 0;
-        int failed = 0;
         // test constuctor #1
         assertTrue("constructor #1 does not work", leftRightCoordsConstructorTest());
         // test constructor #2
