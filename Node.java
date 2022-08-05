@@ -3,6 +3,7 @@ public class Node {
     // member variables
     public Node left;
     public Node right;
+    public Node parent = null;
     public double[] coords;
 
     // constructor with left, right and coords
@@ -69,14 +70,14 @@ public class Node {
         Node loc = this;
         // traverse left
         while(loc.hasLeft()){
-            loc = loc.getLeft();
+            loc = loc.left;
             ++depth_left;
         }
         // reset loc
         loc = this;
         // traverse right
         while(loc.hasRight()) {
-            loc = loc.getRight();
+            loc = loc.right;
             ++depth_right;
         }
         // return based on comparison of left and right
@@ -97,28 +98,7 @@ public class Node {
         }
     }
 
-    // getters & setters
-    public Node getLeft() {
-        return left;
-    }
-
-    public void setLeft(Node node) {
-        left = node;
-    }
-
-    public Node getRight() {
-        return right;
-    }
-
-    public void setRight(Node node) {
-        right = node;
-    }
-
-
-    public double[] getCoords() {
-        return coords;
-    }
-
+    // function to get individual coordinate
     public double getCoord(int index) {
         return coords[index];
     }
