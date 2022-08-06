@@ -30,7 +30,10 @@ public class KdTreeBuilder {
     // run method 
     protected void run() throws Exception {
         // terminal output
-        System.out.println("---------------------------- KDTree Builder --------------------------");
+        System.out.println("┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓");
+        System.out.println("┃                             KDTree Builder                             ┃");
+        System.out.println("┃╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳   running...   ╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳╳┃");
+        System.out.println("┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛");
         boolean kill = false;
         // infinite while loop
         while(!kill){
@@ -42,24 +45,28 @@ public class KdTreeBuilder {
     }
 
     protected boolean buildFromSelection() {
-        System.out.println("Options: ");
+        System.out.println("┌────────────────────────────────────────────────────────────────────────┐");
+        System.out.println("│Options:                                                                │");
         // find csv files in folder
         File csvFolder = new File("csv");
         files = csvFolder.list();
         // display options
         int i = 0;
             for (String file : files) {
-                System.out.println(i + " - " + file);
+                System.out.print("│" + i + " - " + file);
+                for (int j = 0; j < 68 - file.length(); j++){
+                    System.out.print(" ");
+                }
+                System.out.println("│");
             i++;
         }
         // kill option
-        System.out.println("-1 - kill");
-
+        System.out.println("│-1 - kill                                                               │");
+        System.out.println("└────────────────────────────────────────────────────────────────────────┘");
         // select
         System.out.print("Enter the number of option to select: ");
         // option input
         int fileIndex = Integer.parseInt(System.console().readLine());
-
         // if kill
         if(fileIndex==-1){return true;}
 
@@ -77,11 +84,13 @@ public class KdTreeBuilder {
         boolean buildNew = false;
         while(!buildNew) {
             // print options
-            System.out.println("Options: ");
-            System.out.println("0 - print tree");
-            System.out.println("1 - insert node");
-            System.out.println("2 - find nearest");
-            System.out.println("-1 - build new tree");
+            System.out.println("┌────────────────────────────────────────────────────────────────────────┐");
+            System.out.println("│Options:                                                                │");
+            System.out.println("│0 - print tree                                                          │");
+            System.out.println("│1 - insert node                                                         │");
+            System.out.println("│2 - find nearest                                                        │");
+            System.out.println("│-1 - build new tree                                                     │");
+            System.out.println("└────────────────────────────────────────────────────────────────────────┘");
             // select
             System.out.print("Enter the number of option to select: ");
             // read input
@@ -119,6 +128,8 @@ public class KdTreeBuilder {
         }
 
     }
+
+    
     
     protected void logException() { }
     
