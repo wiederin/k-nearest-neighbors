@@ -1,5 +1,4 @@
 package src.test.java.kdtree;
-import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
