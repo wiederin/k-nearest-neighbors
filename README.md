@@ -45,7 +45,8 @@ KdTree
 
 ## KdTree
 
-- https://rosettacode.org/wiki/K-d_tree#Java 
+- https://rosettacode.org/wiki/K-d_tree#Java
+- https://www.baeldung.com/java-print-binary-tree-diagram 
 
 ## Maven
 
@@ -55,3 +56,7 @@ KdTree
 
 - https://www.nathanbak.com/?p=388
 - https://www.vogella.com/tutorials/JUnit/article.html 
+
+## lib
+
+- https://github.com/stefanbirkner/system-rules
