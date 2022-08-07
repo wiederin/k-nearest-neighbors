@@ -128,7 +128,7 @@ public class KdTree {
     // print function
     public void printKdTree() {
         System.out.println("----------------------------- print tree -----------------------------");
-        List<Node> nodes = new ArrayList(1);
+        List<Node> nodes = new ArrayList<Node>();
         System.out.print("0 ");
         for(int k = 0; k < root.getDepth(); k++) {
             System.out.print("      ");
@@ -147,7 +147,7 @@ public class KdTree {
             }
             System.out.println();
             System.out.print(i+1 + "   ");
-            List<Node> nodesNext = new ArrayList();
+            List<Node> nodesNext = new ArrayList<Node>();
             int index = 0;
             for(Node node: nodes) {
                 if(index != 0) {
