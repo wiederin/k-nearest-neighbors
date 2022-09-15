@@ -13,40 +13,58 @@ Each non-leaf node in the tree divides the space into two parts (half-spaces). E
 
 Use KdTreeBuilder.java to build KDTrees from csv data in the csv folder.
 
-KdTree
+KdTree tree print frames:
+
+0-depth
+
+┌──────────┐
+│╭┄┄┄┄┄┄┄┄╮│
+│┆x ┄ 1   ┆│
+│╰┄┄┄┄┄┄┄┄╯│ 
+└──────────┘
+
+base construction:
+
+line 1 = (┌), (─)*10, (┐)
+line 2 = (│), (╭), (┄)*8, (╮), (|)
+line 3 = (│), (┆), (x ), (┄), (1), ( ), (┆), (|)   -> 1 max size 
+line 4 = (│), (╰), (┄)*8, (╯), (|) 
+line 5 = (└), (─)*10, (┘)
+
+line 2 - if (1) is over max size:
+      line 0 add (─) * (1) size - max size at 1
+      line 1 add (┄) * (1) size - max size at 1
+      line 3 add (┄) * (1) size - max size at 1
+      line 4 add (─) * (1) size - max size at 1
 
 1-depth
-
-0     9.0,1.0
-       /    \  
-1 7.0,8.0   13.0,15.0
+┌──────────┐ 
+│╭┄┄┄┄┄┄┄┄╮│
+│┆x ┄ 1   ┆│
+│┆  ┌─┴─┐ ┆│
+│┆y 2   3 ┆│
+│╰┄┄┄┄┄┄┄┄╯│
+└──────────┘
 
 2-depth
 
-0              9.0,1.0
-          ________|________
-         /                 \  
-1     7.0,8.0            13.0,15.0
-      /     \             /     \
-2  5.0,6.0 6.0,12.0  17.0,15.0 10.0,19.0
+┌────────────────┐
+│╭┄┄┄┄┄┄┄┄┄┄┄┄┄┄╮│
+│┆x ┄┄┄┄ 1      ┆│
+│┆    ┌──┴──┐   ┆│
+│┆y ┄ 2     3   ┆│ 
+│┆  ┌─┴─┐ ┌─┴─┐ ┆│
+│┆z 4   5 6   7 ┆│
+│╰┄┄┄┄┄┄┄┄┄┄┄┄┄┄╯│
+└────────────────┘
 
 3-depth
-
-0              9.0,1.0
-          ________|________
-         /                 \  
-1     7.0,8.0            13.0,15.0
-      /     \             /     \
-2  5.0,6.0 6.0,12.0  17.0,15.0 10.0,19.0
-    /  \     /  \       /  \      /  \
-3 3.0,6.0
 
 # Helpful Sources
 
 ## KdTree
 
 - https://rosettacode.org/wiki/K-d_tree#Java
-- https://www.baeldung.com/java-print-binary-tree-diagram 
 
 ## Maven
 
@@ -60,3 +78,8 @@ KdTree
 ## lib
 
 - https://github.com/stefanbirkner/system-rules
+
+## etc
+
+- https://en.wikipedia.org/wiki/Box-drawing_character 
+
