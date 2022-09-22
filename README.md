@@ -85,6 +85,7 @@ line 2 - if (1) is over max size:
 ## Maven
 
 - https://spring.io/guides/gs/maven/  
+- https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html
 
 ## Testing
 
