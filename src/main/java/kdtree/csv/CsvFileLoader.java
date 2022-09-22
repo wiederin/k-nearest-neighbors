@@ -1,11 +1,11 @@
-package src.main.java.kdtree.csv;
+package knn.csv;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import src.main.java.kdtree.tree.node.Node;
+import knn.kdtree.tree.node.Node;
 
 public class CsvFileLoader{
     // member variables
