@@ -1,8 +1,8 @@
-package src.test.java.kdtree.csv;
+package knn.csv;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
-import src.main.java.kdtree.csv.CsvFileLoader;
 
 public class CsvFileLoaderTest {
     @Test

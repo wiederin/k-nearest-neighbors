@@ -1,11 +1,10 @@
-package src.test.java.kdtree.tree;
+package knn.kdtree;
 
-import src.main.java.kdtree.csv.CsvFileLoader;
-import src.main.java.kdtree.tree.node.Node;
-import src.main.java.kdtree.tree.KdTree;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import knn.csv.CsvFileLoader;
 
 public class KdTreeTest {
     @Test

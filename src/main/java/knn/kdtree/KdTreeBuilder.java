@@ -1,8 +1,7 @@
-package src.main.java.kdtree;
+package knn.kdtree;
 import java.io. * ;
 
 import knn.csv.CsvFileLoader;
-import knn.kdtree.tree.KdTree;
 
 public class KdTreeBuilder {
 

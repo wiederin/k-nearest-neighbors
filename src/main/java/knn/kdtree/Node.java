@@ -1,4 +1,4 @@
-package src.main.java.kdtree.tree.node;
+package knn.kdtree;
 
 public class Node {
 
