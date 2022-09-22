@@ -100,6 +100,22 @@ public class Node {
         }
     }
 
+    // return string of coordinates
+    public String stringNode() {
+        String node = "";
+        // flag for comma
+        boolean comma = false;
+        // loop through coordinates
+        for(double coord : coords) {
+            // if first coord then no preceding comma
+            if(comma){node = node + ",";}
+            else {comma = true;}
+            // print coord with no newline
+            node = node + coord ;
+        }
+        return node;
+    }
+
     // function to get individual coordinate
     public double getCoord(int index) {
         return coords[index];
