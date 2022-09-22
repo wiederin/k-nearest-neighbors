@@ -5,7 +5,7 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
-import knn.kdtree.tree.KdTree;
+import src.main.java.kdtree.tree.KdTree;
 import knn.kdtree.tree.node.Node;
 
 public class KdTreePrinter {
