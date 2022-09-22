@@ -2,8 +2,8 @@ package src.main.java.kdtree.tree;
 import java.util.ArrayList;
 import java.util.List;
 
-import src.main.java.kdtree.select.QuickSelect;
-import src.main.java.kdtree.tree.node.*;
+import knn.kdtree.select.QuickSelect;
+import knn.kdtree.tree.node.*;
 
 public class KdTree {
     
