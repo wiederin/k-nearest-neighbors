@@ -1,4 +1,4 @@
-package knn.csv;
+package src.main.java.kdtree.csv;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.List;
