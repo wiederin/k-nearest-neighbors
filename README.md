@@ -17,15 +17,13 @@ KdTree tree print frames:
 
 0-depth
 
+```
 ┌──────────┐
-
 │╭┄┄┄┄┄┄┄┄╮│
-
 │┆x ┄ 1   ┆│
-
 │╰┄┄┄┄┄┄┄┄╯│
-
 └──────────┘
+```
 
 base construction:
 
