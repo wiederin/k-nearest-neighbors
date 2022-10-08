@@ -10,6 +10,7 @@ public class KdTreeBuilder {
     protected static KdTreeBuilder instance = null;
     protected KdTree tree;
 
+    
     // empty constructor
     protected KdTreeBuilder() {
 
@@ -97,7 +98,9 @@ public class KdTreeBuilder {
             int action = Integer.parseInt(System.console().readLine());
             if(action == 0) {
                 // print tree
-                tree.printKdTree();
+                KdTreePrinter printer = new KdTreePrinter();
+                printer.printKdTree(tree);
+                //tree.printKdTree();
             } else if(action == 1) {
                 // insert coords
                 System.out.print("Enter the coordinates to insert: ");

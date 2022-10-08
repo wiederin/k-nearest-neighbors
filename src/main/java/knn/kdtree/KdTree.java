@@ -123,49 +123,4 @@ public class KdTree {
         }
         return nearest;
     }
-    
-    // print function
-    public void printKdTree() {
-        System.out.println("----------------------------- print tree -----------------------------");
-        List<Node> nodes = new ArrayList<Node>();
-        System.out.print("0 ");
-        for(int k = 0; k < root.getDepth(); k++) {
-            System.out.print("      ");
-        }
-        root.printNode();
-        System.out.println();
-        if(root.left == null && root.right == null) {return;}
-        nodes.add(root.left);
-        nodes.add(root.right);
-        for(int i = 0; i < root.getDepth(); i++) {
-            for(int l = 0; l < 20/(i+1); l++) {
-                System.out.print(" ");
-            }
-            for(int j = 0; j <= i; j++) {
-                System.out.print(" /   \\   ");
-            }
-            System.out.println();
-            System.out.print(i+1 + "   ");
-            List<Node> nodesNext = new ArrayList<Node>();
-            int index = 0;
-            for(Node node: nodes) {
-                if(index != 0) {
-                    System.out.print(" ");
-                }
-                ++index;
-                if(node == null) {
-                    System.out.print(" - ");
-                    nodesNext.add(null);
-                    nodesNext.add(null);
-                } else {
-                    node.printNode();
-                    nodesNext.add(node.left);
-                    nodesNext.add(node.right);
-                }
-            }
-            System.out.println();
-            nodes = nodesNext;
-        }
-        System.out.println("----------------------------------------------------------------------");
-    }
 }

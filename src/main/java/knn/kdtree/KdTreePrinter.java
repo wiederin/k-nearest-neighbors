@@ -4,136 +4,47 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
+
+import javafx.util.Pair;
 
 public class KdTreePrinter {
 
-    public KdTreePrinter() {
-
-    }
+    public KdTreePrinter() {}
 
     public void printKdTree(KdTree tree) {
-        /* 
-            ┌──────────┐ = (┌), (─)*10, (┐)
-            │╭┄┄┄┄┄┄┄┄╮│ = (│), (╭), (┄)*8, (╮), (|)
-            │┆x ┄ 1   ┆│ = (│), (┆), (x ), (┄), (1), ( ), (┆), (|)   -> 1 max size 
-            │╰┄┄┄┄┄┄┄┄╯│ = (│), (╰), (┄)*8, (╯), (|)
-            └──────────┘ = (└), (─)*10, (┘)
-        */
+        // get root
         Node root = tree.root;
-        String one = root.stringNode();
-        int add = 0;
-        if(one.length() > 3) {
-            add = one.length() - 4;
-        }
-        int bufSize = 10 + add;
-        int buf1Size = 8 + add;
-        int buf2Size = 1;
-        String borderLeft = "│┆";
-        String borderRight = "┆│";
+        System.out.println(root.stringNode());
+        Stack<Node> leftNodes = new Stack<Node>();
+        String buf = new String(new char[root.stringNode().length()-3]).replace("\0", "─");
+        String buf1 = "";
+        leftNodes = recPrintKdTree(root, buf, buf1, leftNodes);
 
-        List<String> outputStrings = new LinkedList<String>();
-        Collection<String> leafStrings = new ArrayList<String>();
-        // if root is not leaf
-        // print leafs
-        List<Node> leafs = new LinkedList<Node>();
-        if(!root.isLeaf()) {
-            if(root.hasLeft()){leafs.add(root.left);}
-            if(root.hasRight()){leafs.add(root.right);}
-            for(int i = 0; i < root.getDepth(); i++) {
-                List<Node> leafsNext = new LinkedList<Node>();
-                String buf3 = new String(new char[root.getDepth()]).replace("\0", "┄");
-                String leafLine = borderLeft + iToDimension(i, tree.dimensions) + " " + buf3 + " ";
-                buf2Size++;
-                for(Node leaf: leafs) {
-
-                    leafStrings.add(borderLeft + "     ┌─┴─┐ " + borderRight);
-                    if(leaf.hasLeft()){leafsNext.add(leaf.left);}
-                    if(leaf.hasRight()){leafsNext.add(leaf.right);}
-                    leafLine = leafLine + leaf.stringNode() + " ";
-                }
-                leafLine = leafLine + borderRight;
-                leafStrings.add(leafLine);
-                leafs = leafsNext;
-            }
-
+        while(!leftNodes.empty()) {
+            Node left = leftNodes.pop();
+            System.out.println(buf1 + "└─ l " + buf +  left.stringNode());
+            leftNodes.add(0, recPrintKdTree(left, buf, buf1+"     ", leftNodes));
         }
 
-        // open box
-        String buf = new String(new char[bufSize]).replace("\0", "─");
-        String topbar = ("┌" + buf + "┐");
-        outputStrings.add(topbar);
-        // open dotted box
-        String buf1 = new String(new char[buf1Size]).replace("\0", "┄");
-        String dottedTopBar = "│╭" + buf1 + "╮│";
-        outputStrings.add(dottedTopBar);
-        // root
-        String buf2 = new String(new char[buf2Size]).replace("\0", "┄");
-        String rootLine = borderLeft + "0" + " " + buf2 + " " + one + borderRight;
-        outputStrings.add(rootLine);
-        // leafs
-        outputStrings.addAll(leafStrings);
-        
-        // close dotted box
-        String dottedBottomBar = "│╰" + buf1 + "╯│";
-        outputStrings.add(dottedBottomBar);
-        // close box
-        String bottombar = ("└" + buf + "┘");
-        outputStrings.add(bottombar);
-
-        outputStrings = reformat(outputStrings);
-        // print tree
-        for(String outputString: outputStrings) {
-            System.out.println(outputString);
-        }
     }
 
-    // function that returns dimension from an int
-    public String iToDimension(int i, int dimensions) {
-        String dimension = "";
-        if(i%dimensions==0){
-            dimension = "1";
-        }
-        return dimension;
-    }
-
-    public List<String> reformat(List<String> outputStrings) {
-        List<String> reformatted = new LinkedList<String> ();
-        // find longest
-        int longest = 0;
-        for(String outputString: outputStrings){
-            if(outputString.length() > longest) {
-                longest = outputString.length();
-            }
-        }
-        // reformat all smaller lines
-        for(int i = 0; i < outputStrings.size(); i++){
-            String line = outputStrings.get(i);
-            if(line.length() < longest) {
-                line = reformatLine(i, line, longest);
-                reformatted.add(line);
+    public Stack<Node> recPrintKdTree(Node node, String buf, String buf1, Stack<Node> leftNodes) {
+        //System.out.println("buf " + buf + " end buf");
+        if(node.hasRight()){
+            Node right = node.right;
+            if(node.hasLeft()){
+                leftNodes.add(node.left);
+                System.out.println(buf1 + "├─ r " + buf + right.stringNode());
             } else {
-                reformatted.add(line);
+                System.out.println(buf1 + "└─ r " + buf + right.stringNode());
             }
+            return recPrintKdTree(right, buf, "│          ", leftNodes);
+        } else if (node.hasLeft()) {
+            leftNodes.add(node.left);
         }
-        return reformatted;
-    }
-
-    public String reformatLine(int i, String line, int longest){
-        int len = longest - line.length();
-        int offset = 0;
-        String buf = "";
-        String end = "";
-        if(i == 0) {
-            offset = 1;
-            buf = "─";
-            end = "┐";
-        } else if(i == 1) {
-            offset = 2;
-            buf = "┄";
-            end = "╮│";
-        }
-        String add = new String(new char[len]).replace("\0", buf);
-        return line.substring(0, line.length()-offset) + add + end; 
+        //return new Pair<Stack<Node>, String>(leftNodes, buf1);
+        return leftNodes;
     }
     
 }
