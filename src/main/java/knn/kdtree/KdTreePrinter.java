@@ -5,26 +5,35 @@ import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
+import java.util.AbstractMap.SimpleEntry;
 
-import javafx.util.Pair;
-
+/* KdTreePrinter 
+ *
+ * prints kdtree on command line
+ *
+ * */
 public class KdTreePrinter {
-
+    // empty constructor
     public KdTreePrinter() {}
-
+    
+    // main print function taking a KdTree as input
     public void printKdTree(KdTree tree) {
-        // get root
+        // get root of input tree
         Node root = tree.root;
+        // print out the root string
         System.out.println(root.stringNode());
+        // create stack of left nodes
         Stack<Node> leftNodes = new Stack<Node>();
+        // create buffers for clean output
         String buf = new String(new char[root.stringNode().length()-3]).replace("\0", "─");
         String buf1 = "";
+        // call recursive print function
         leftNodes = recPrintKdTree(root, buf, buf1, leftNodes);
 
         while(!leftNodes.empty()) {
             Node left = leftNodes.pop();
             System.out.println(buf1 + "└─ l " + buf +  left.stringNode());
-            leftNodes.add(0, recPrintKdTree(left, buf, buf1+"     ", leftNodes));
+            //leftNodes.add(0, recPrintKdTree(left, buf, buf1+"     ", leftNodes));
         }
 
     }
@@ -46,5 +55,4 @@ public class KdTreePrinter {
         //return new Pair<Stack<Node>, String>(leftNodes, buf1);
         return leftNodes;
     }
-    
 }
