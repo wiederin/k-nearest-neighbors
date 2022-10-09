@@ -25,6 +25,15 @@ public class Node {
         }
     }
 
+
+    public boolean isRoot() {
+        if(parent == null){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     // function to get distance to input node
     public double distanceTo(Node node) {
         // init
@@ -55,7 +64,6 @@ public class Node {
         return true;
     }
 
-
     // function that returns true if node has right
     public boolean hasRight() {
         if (right == null) {
@@ -64,8 +72,33 @@ public class Node {
         return true;
     }
 
+    // function that returns root
+    public Node getRoot() {
+        Node loc = this;
+        while(!loc.isRoot()) {
+            loc = loc.parent;
+        }
+        return loc;
+    }
+
     // function that returns depth of node in tree
-    public int getDepth() {
+    public int depth() {
+        int depth = 0;
+        // if root
+        if(this.isRoot()) {
+            return depth;
+        } else {
+            Node loc = this;
+            while(!loc.isRoot()) {
+                depth++;
+                loc = loc.parent;
+            }
+            return depth;
+        }
+    } 
+
+    // function that returns height of node in tree
+    public int getHeight() {
         // init
         int depth_left = 0;
         int depth_right = 0;
