@@ -1,5 +1,4 @@
-package src.test.java.kdtree.tree.node;
-import src.main.java.kdtree.tree.node.Node;
+package knn.kdtree;
 import static org.junit.Assert.*;
 import org.junit.Test;
 

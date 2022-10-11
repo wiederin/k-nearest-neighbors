@@ -1,10 +1,9 @@
-package src.test.java.kdtree;
-import static org.junit.Assert.*;
+package knn.kdtree;
 import org.junit.After;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.ExpectedSystemExit;
-import src.main.java.kdtree.KdTreeBuilder;
+
 
 public class KdTreeBuilderTest extends KdTreeBuilder {
     @After

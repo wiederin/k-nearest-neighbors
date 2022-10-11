@@ -1,4 +1,4 @@
-package src.main.java.kdtree.tree.node;
+package knn.kdtree;
 
 public class Node {
 
@@ -22,6 +22,15 @@ public class Node {
         coords = new double[coordStrings.length];
         for (int i = 0; i < coordStrings.length; i++) {
             coords[i] = Double.parseDouble(coordStrings[i]);
+        }
+    }
+
+
+    public boolean isRoot() {
+        if(parent == null){
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -55,7 +64,6 @@ public class Node {
         return true;
     }
 
-
     // function that returns true if node has right
     public boolean hasRight() {
         if (right == null) {
@@ -64,8 +72,33 @@ public class Node {
         return true;
     }
 
+    // function that returns root
+    public Node getRoot() {
+        Node loc = this;
+        while(!loc.isRoot()) {
+            loc = loc.parent;
+        }
+        return loc;
+    }
+
     // function that returns depth of node in tree
-    public int getDepth() {
+    public int depth() {
+        int depth = 0;
+        // if root
+        if(this.isRoot()) {
+            return depth;
+        } else {
+            Node loc = this;
+            while(!loc.isRoot()) {
+                depth++;
+                loc = loc.parent;
+            }
+            return depth;
+        }
+    } 
+
+    // function that returns height of node in tree
+    public int getHeight() {
         // init
         int depth_left = 0;
         int depth_right = 0;
@@ -98,6 +131,22 @@ public class Node {
             // print coord with no newline
             System.out.print(coord);
         }
+    }
+
+    // return string of coordinates
+    public String stringNode() {
+        String node = "";
+        // flag for comma
+        boolean comma = false;
+        // loop through coordinates
+        for(double coord : coords) {
+            // if first coord then no preceding comma
+            if(comma){node = node + ",";}
+            else {comma = true;}
+            // print coord with no newline
+            node = node + coord ;
+        }
+        return node;
     }
 
     // function to get individual coordinate
