@@ -13,8 +13,13 @@ import java.util.AbstractMap.SimpleEntry;
  *
  * */
 public class KdTreePrinter {
+
+    // member variables
+    public String base;
+
     // empty constructor
-    public KdTreePrinter() {}
+    public KdTreePrinter() {
+    }
     
     // main print function taking a KdTree as input
     public void printKdTree(KdTree tree) {
@@ -24,30 +29,24 @@ public class KdTreePrinter {
         Node root = tree.root;
         // add root to outputStrings
         outputStrings.add(root.stringNode());
+        // create buffer base from root
+        String space = new String(new char[root.stringNode().length() + 2]).replace("\0", " ");
+        this.base = "│" + space;
         // create stack of left nodes
         Stack<Node> leftNodes = new Stack<Node>();
         // create buffers for clean output
         String buf = new String(new char[root.stringNode().length() - 3]).replace("\0", "─");
-        String space = new String(new char[root.stringNode().length() + 2]).replace("\0", " ");
-        String buf1 = "│" + space;
         // call recursive print function
-        leftNodes = recPrintKdTree(outputStrings, root, buf, buf1, leftNodes);
+        leftNodes = recPrintKdTree(outputStrings, root, buf, leftNodes);
         
         while(!leftNodes.empty()) {
             Node left = leftNodes.pop();
-            if(leftNodes.size() == 0 && left.parent == root) {
-                buf1 = ""; 
-            } else if (leftNodes.size() == 0) {
-                buf1 = " " + space;
-            } else {
-                buf1 = buf1.substring(0, root.stringNode().length()+3);
-            }
             //outputStrings.add("parent = " + left.parent.stringNode());
-            outputStrings.add(buf1 + "└─ l " + buf +  left.stringNode());
-            Stack<Node> newLeftNodes = recPrintKdTree(outputStrings, left, buf, buf1, leftNodes);
-            //for(Node node: newLeftNodes) {
-            //    leftNodes.add(node);
-            //}
+            outputStrings.add(createBuf(left, leftNodes) + "└─ l " + buf +  left.stringNode());
+            if(left.parent.isRoot()) {
+                this.base =  new String(new char[root.stringNode().length() + 3]).replace("\0", " ");
+            }
+            recPrintKdTree(outputStrings, left, buf, leftNodes);
             
         }
         for(String string: outputStrings) {
@@ -57,24 +56,21 @@ public class KdTreePrinter {
 
     }
 
-    public Stack<Node> recPrintKdTree(LinkedList<String> outputStrings, Node node, String buf, String buf1, Stack<Node> leftNodes) {
+    public Stack<Node> recPrintKdTree(LinkedList<String> outputStrings, Node node, String buf, Stack<Node> leftNodes) {
         //System.out.println("buf " + buf + " end buf");
         if(node.hasRight()){
             Node right = node.right;
             if(node.hasLeft()){
                 if(node.isRoot()){
-                    outputStrings.add("parent: " + right.parent.stringNode());
                     outputStrings.add("├─ r " + buf + right.stringNode());
                 } else {
-                    outputStrings.add("parent: " + right.parent.stringNode());
-                    outputStrings.add(createBuf(right) + "├─ r " + buf + right.stringNode());
+                    outputStrings.add(createBuf(right, leftNodes) + "├─ r " + buf + right.stringNode());
                 }
-                buf1 = buf1 + buf1;
                 leftNodes.add(node.left);
             } else {
-                outputStrings.add(createBuf(right) + "└─ r " + buf + right.stringNode());
+                outputStrings.add(createBuf(right, leftNodes) + "└─ r " + buf + right.stringNode());
             }
-            return recPrintKdTree(outputStrings, right, buf, buf1, leftNodes);
+            return recPrintKdTree(outputStrings, right, buf, leftNodes);
         } else if (node.hasLeft()) {
             leftNodes.add(node.left);
         }
@@ -83,10 +79,7 @@ public class KdTreePrinter {
     }
 
     // function that creates a buffer according to depth
-    public String createBuf(Node node) {
-        // buffer base
-        String space = new String(new char[node.getRoot().stringNode().length() + 2]).replace("\0", " ");
-        String base = "│" + space;
-        return base.repeat(node.depth());
+    public String createBuf(Node node, Stack<Node> leftNodes) {
+        return this.base.repeat(node.depth() - 1);
     }
 }
