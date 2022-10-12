@@ -81,13 +81,14 @@ public class Node {
         return loc;
     }
 
-    // function that returns depth of node in tree
+    // returns depth of node in tree - distance to root
     public int depth() {
         int depth = 0;
-        // if root
+        // if root return depth
         if(this.isRoot()) {
             return depth;
-        } else {
+        } else { 
+            // loop through tree until loc isRoot 
             Node loc = this;
             while(!loc.isRoot()) {
                 depth++;

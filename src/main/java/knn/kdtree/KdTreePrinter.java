@@ -15,7 +15,9 @@ import java.util.AbstractMap.SimpleEntry;
 public class KdTreePrinter {
 
     // member variables
-    public String base;
+    public String bufLeft;
+    public String bufRight;
+    public String pos = "";
 
     // empty constructor
     public KdTreePrinter() {
@@ -31,7 +33,8 @@ public class KdTreePrinter {
         outputStrings.add(root.stringNode());
         // create buffer base from root
         String space = new String(new char[root.stringNode().length() + 2]).replace("\0", " ");
-        this.base = "│" + space;
+        bufLeft = "│" + space;
+        bufRight = new String(new char[root.stringNode().length() + 3]).replace("\0", " ");
         // create stack of left nodes
         Stack<Node> leftNodes = new Stack<Node>();
         // create buffers for clean output
@@ -41,11 +44,11 @@ public class KdTreePrinter {
         
         while(!leftNodes.empty()) {
             Node left = leftNodes.pop();
-            //outputStrings.add("parent = " + left.parent.stringNode());
-            outputStrings.add(createBuf(left, leftNodes) + "└─ l " + buf +  left.stringNode());
             if(left.parent.isRoot()) {
-                this.base =  new String(new char[root.stringNode().length() + 3]).replace("\0", " ");
+                pos = "";
             }
+            pos = pos + "l";    
+            outputStrings.add(createBuf(left, leftNodes) + "└─ l " + buf +  left.stringNode());
             recPrintKdTree(outputStrings, left, buf, leftNodes);
             
         }
@@ -60,6 +63,7 @@ public class KdTreePrinter {
         //System.out.println("buf " + buf + " end buf");
         if(node.hasRight()){
             Node right = node.right;
+            pos = pos + "r";
             if(node.hasLeft()){
                 if(node.isRoot()){
                     outputStrings.add("├─ r " + buf + right.stringNode());
@@ -80,6 +84,10 @@ public class KdTreePrinter {
 
     // function that creates a buffer according to depth
     public String createBuf(Node node, Stack<Node> leftNodes) {
-        return this.base.repeat(node.depth() - 1);
+        System.out.print("node = " + node.stringNode() + " ");
+        System.out.print("pos = " + pos + " ");
+        System.out.println("is leaf " + node.isLeaf());
+        if(node.isLeaf()) {pos = pos.substring(0, pos.length() - 2);}
+        return bufLeft.repeat(node.depth() - 1);
     }
 }
