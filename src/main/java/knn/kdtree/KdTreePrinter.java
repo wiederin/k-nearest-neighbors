@@ -15,9 +15,11 @@ import java.util.AbstractMap.SimpleEntry;
 public class KdTreePrinter {
 
     // member variables
-    public String bufLeft;
+    public String bufLeft; // only spaces
     public String bufRight;
-    public String pos = "";
+    public String bufSum;
+    public boolean goneLeft;
+    public int rootStringLen;
 
     // empty constructor
     public KdTreePrinter() {
@@ -32,9 +34,11 @@ public class KdTreePrinter {
         // add root to outputStrings
         outputStrings.add(root.stringNode());
         // create buffer base from root
-        String space = new String(new char[root.stringNode().length() + 2]).replace("\0", " ");
-        bufLeft = "│" + space;
-        bufRight = new String(new char[root.stringNode().length() + 3]).replace("\0", " ");
+        rootStringLen = root.stringNode().length();
+        String space = new String(new char[rootStringLen + 2]).replace("\0", " ");
+        bufRight = "│" + space;
+        bufLeft = new String(new char[rootStringLen + 3]).replace("\0", " ");
+        bufSum = "";
         // create stack of left nodes
         Stack<Node> leftNodes = new Stack<Node>();
         // create buffers for clean output
@@ -45,10 +49,11 @@ public class KdTreePrinter {
         while(!leftNodes.empty()) {
             Node left = leftNodes.pop();
             if(left.parent.isRoot()) {
-                pos = "";
+                //bufSum = "";
+            } else {
+                //bufSum = bufSum + bufLeft;
             }
-            pos = pos + "l";    
-            outputStrings.add(createBuf(left, leftNodes) + "└─ l " + buf +  left.stringNode());
+            outputStrings.add(createBuf(left, leftNodes, bufLeft) + "└─ l " + buf +  left.stringNode());
             recPrintKdTree(outputStrings, left, buf, leftNodes);
             
         }
@@ -63,19 +68,15 @@ public class KdTreePrinter {
         //System.out.println("buf " + buf + " end buf");
         if(node.hasRight()){
             Node right = node.right;
-            pos = pos + "r";
-            if(node.hasLeft()){
-                if(node.isRoot()){
-                    outputStrings.add("├─ r " + buf + right.stringNode());
-                } else {
-                    outputStrings.add(createBuf(right, leftNodes) + "├─ r " + buf + right.stringNode());
-                }
+            if(node.hasLeft()) {
+                outputStrings.add(createBuf(right, leftNodes, bufRight) + "├─ r " + buf + right.stringNode());
                 leftNodes.add(node.left);
             } else {
-                outputStrings.add(createBuf(right, leftNodes) + "└─ r " + buf + right.stringNode());
+                outputStrings.add(createBuf(right, leftNodes, bufRight) + "└─ r " + buf + right.stringNode());
             }
             return recPrintKdTree(outputStrings, right, buf, leftNodes);
-        } else if (node.hasLeft()) {
+        }
+        if (node.hasLeft()) {
             leftNodes.add(node.left);
         }
         //return new Pair<Stack<Node>, String>(leftNodes, buf1);
@@ -83,11 +84,72 @@ public class KdTreePrinter {
     }
 
     // function that creates a buffer according to depth
-    public String createBuf(Node node, Stack<Node> leftNodes) {
-        System.out.print("node = " + node.stringNode() + " ");
-        System.out.print("pos = " + pos + " ");
+    public String createBuf(Node node, Stack<Node> leftNodes, String buf) {
+        System.out.println("node = " + node.stringNode() + " ");
+        System.out.println("bufStart" + bufSum + "bufEnd");
+        //System.out.print("pos = " + pos + " ");
+        //System.out.print("leftnodes size = " + leftNodes.size() + " ");
+        if(!node.isRoot()) {
+            System.out.println("parent: " + node.parent.stringNode());
+        }
+        //System.out.println("has left " + node.hasLeft());
         System.out.println("is leaf " + node.isLeaf());
-        if(node.isLeaf()) {pos = pos.substring(0, pos.length() - 2);}
-        return bufLeft.repeat(node.depth() - 1);
+
+        // return current buf
+        if(node.parent.isRoot() && !buf.startsWith("│")) {
+            bufSum = ""; 
+        }
+        String curBuf = bufSum;
+        // update buf for next
+        if(node.isLeaf()) {
+            // if node is left
+            if(!buf.startsWith("│") && !node.parent.isRoot()) {
+                Node cur = node.parent.parent;
+                Node mid = node.parent;
+                int cutCount = 1;
+                boolean goUp = true;
+                while(goUp){
+                    //cur = cur.parent;
+                    if(cur.hasLeft()){
+                        if(cur.left.stringNode().contentEquals(mid.stringNode()) && !cur.isRoot()) {
+                            mid = cur;
+                            cur = cur.parent;
+                            cutCount++;
+                        } else {
+                            goUp = false;
+                        }
+                    } else if(!cur.isRoot()) {
+                        cur = cur.parent;
+                        cutCount++;
+                    }
+                }
+                bufSum = bufSum.substring(0, bufSum.length() - (cutCount * (rootStringLen + 3)));
+            } else if(!node.parent.hasLeft() && !node.parent.isRoot()) {
+                int cutCount = 1;
+                Node cur = node.parent.parent;
+                Node mid = node.parent;
+                boolean goUp = true;
+                while(goUp){
+                    //cur = cur.parent;
+                    if(cur.hasLeft()){
+                        if(cur.left.stringNode().contentEquals(mid.stringNode()) && !cur.isRoot()) {
+                            mid = cur;
+                            cur = cur.parent;
+                            cutCount++;
+                        } else {
+                            goUp = false;
+                        }
+                    } else if(!cur.isRoot()){
+                        cur = cur.parent;
+                        cutCount++;
+                    }
+                }
+                bufSum = bufSum.substring(0, bufSum.length() - (cutCount * (rootStringLen + 3)));
+            }
+        } else {
+            bufSum = bufSum + buf;
+        }
+        return curBuf;
     }
+    
 }
