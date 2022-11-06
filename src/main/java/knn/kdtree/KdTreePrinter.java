@@ -18,7 +18,6 @@ public class KdTreePrinter {
     public String bufLeft; // only spaces
     public String bufRight;
     public String bufSum;
-    public boolean goneLeft;
     public int rootStringLen;
 
     // empty constructor
@@ -53,7 +52,7 @@ public class KdTreePrinter {
             } else {
                 //bufSum = bufSum + bufLeft;
             }
-            outputStrings.add(createBuf(left, leftNodes, bufLeft) + "└─ l " + buf +  left.stringNode());
+            outputStrings.add(createBuf(left, bufLeft) + "└─ l " + buf +  left.stringNode());
             recPrintKdTree(outputStrings, left, buf, leftNodes);
             
         }
@@ -65,36 +64,24 @@ public class KdTreePrinter {
     }
 
     public Stack<Node> recPrintKdTree(LinkedList<String> outputStrings, Node node, String buf, Stack<Node> leftNodes) {
-        //System.out.println("buf " + buf + " end buf");
         if(node.hasRight()){
             Node right = node.right;
             if(node.hasLeft()) {
-                outputStrings.add(createBuf(right, leftNodes, bufRight) + "├─ r " + buf + right.stringNode());
+                outputStrings.add(createBuf(right, bufRight) + "├─ r " + buf + right.stringNode());
                 leftNodes.add(node.left);
             } else {
-                outputStrings.add(createBuf(right, leftNodes, bufRight) + "└─ r " + buf + right.stringNode());
+                outputStrings.add(createBuf(right, bufRight) + "└─ r " + buf + right.stringNode());
             }
             return recPrintKdTree(outputStrings, right, buf, leftNodes);
         }
         if (node.hasLeft()) {
             leftNodes.add(node.left);
         }
-        //return new Pair<Stack<Node>, String>(leftNodes, buf1);
         return leftNodes;
     }
 
     // function that creates a buffer according to depth
-    public String createBuf(Node node, Stack<Node> leftNodes, String buf) {
-        System.out.println("node = " + node.stringNode() + " ");
-        System.out.println("bufStart" + bufSum + "bufEnd");
-        //System.out.print("pos = " + pos + " ");
-        //System.out.print("leftnodes size = " + leftNodes.size() + " ");
-        if(!node.isRoot()) {
-            System.out.println("parent: " + node.parent.stringNode());
-        }
-        //System.out.println("has left " + node.hasLeft());
-        System.out.println("is leaf " + node.isLeaf());
-
+    public String createBuf(Node node, String buf) {
         // return current buf
         if(node.parent.isRoot() && !buf.startsWith("│")) {
             bufSum = ""; 
